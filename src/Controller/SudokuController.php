@@ -20,8 +20,8 @@ class SudokuController extends AbstractController
     #[Route('/sudoku/new', name: 'sudoku_new', methods: ['GET'])]
     public function new(): Response
     {
-        // À personnaliser selon vos besoins
-        return new JsonResponse( $this->sudoku->generate() );
+        // on genere le sudoku
+        return new JsonResponse( $this->sudoku->generateWithBlank() );
     }
 
     #[Route('/sudoku/solve', name: 'sudoku_solve', methods: ['POST'])]
@@ -34,7 +34,6 @@ class SudokuController extends AbstractController
     #[Route('/sudoku/validate', name: 'sudoku_validate', methods: ['POST'])]
     public function validate(): Response
     {
-        // À personnaliser : logique de validation
-        return new Response('Valider la grille de Sudoku');
+        return new JsonResponse( $this->sudoku->validate( $this->input->post('sudoku') ) );
     }
 }
